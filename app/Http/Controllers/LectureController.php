@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Department\Department;
 use App\Models\Lecture\Lecture;
+use App\Models\Module\Module;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -67,7 +68,9 @@ class LectureController extends Controller
      */
     public function show(Lecture $lecture)
     {
-        return request()->wantsJson() ? new JsonResponse(["data" => $lecture], 200) :  view("department.lectures.show", compact("lecture"));
+        $title = "Show Details Lecture";
+        $modules = Module::all();
+        return request()->wantsJson() ? new JsonResponse(["data" => $lecture], 200) :  view("lecture.show", compact("lecture", "title", "modules"));
         //
     }
 

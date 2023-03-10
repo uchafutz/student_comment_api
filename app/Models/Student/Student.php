@@ -4,6 +4,8 @@ namespace App\Models\Student;
 
 use App\Models\Course\Course;
 use App\Models\Department\AccademicYear;
+use App\Models\Department\Department;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -13,14 +15,14 @@ class Student extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $fillable = ["code", "user_id", "course_id", "accademic_year_id"];
+    protected $fillable = ["code", "user_id", "course_id", "accademic_year_id", "department_id"];
 
     public static function boot()
     {
         parent::boot();
         static::creating(function ($model) {
             $latest = Student::latest()->first();
-            $phrase = "/" . date('y') . "/" . rand(100090, 990009);
+            $phrase = "ID/" . date('Y') . "/" . rand(100090, 990009);
             // dd($latest);
             if (!$latest) {
                 $model->code = $phrase . '-' . 1;
@@ -29,6 +31,11 @@ class Student extends Model
                 $model->code = $phrase . '-' . ($arr[1] + 1);
             }
         });
+    }
+
+    public function departments()
+    {
+        return $this->belongsTo(Department::class, 'department_id');
     }
 
     public function users()

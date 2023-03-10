@@ -3,6 +3,7 @@
 namespace App\Models\Lecture;
 
 use App\Models\Department\Department;
+use App\Models\Module\Module;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -30,6 +31,12 @@ class Lecture extends Model
             }
         });
     }
+
+    public function modules()
+    {
+        return $this->belongsToMany(Module::class, 'lecture_has_modules', 'lecture_id', 'module_id');
+    }
+
 
     public function users()
     {

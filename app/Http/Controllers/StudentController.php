@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Course\Course;
 use App\Models\Department\AccademicYear;
+use App\Models\Department\Department;
 use App\Models\Student\Student;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
@@ -21,7 +22,8 @@ class StudentController extends Controller
     {
 
         $students = Student::paginate(10);
-        return request()->wantsJson() ? new JsonResponse(["data" => $students], 200) : view("student.index", compact("students"));
+        $departments = Department::all();
+        return request()->wantsJson() ? new JsonResponse(["data" => $students], 200) : view("student.index", compact("students", "departments"));
         //
     }
 
@@ -37,8 +39,9 @@ class StudentController extends Controller
         $courses = Course::all();
         $users = User::where("status", "=", "0")->where("type", "=", "student")->get();
         $years = AccademicYear::where("status", "=", "1")->get();
+        $departments = Department::all();
         // dd($users);
-        return view('student.create', compact('title', 'courses', 'users', "years"));
+        return view('student.create', compact('title', 'courses', 'users', "years", "departments"));
         //
     }
 
@@ -57,7 +60,8 @@ class StudentController extends Controller
 
                 "user_id" => ["required"],
                 "course_id" => ["required"],
-                "accademic_year_id" => ["required"]
+                "accademic_year_id" => ["required"],
+
 
             ]
         );
@@ -96,8 +100,9 @@ class StudentController extends Controller
         $courses = Course::all();
         $users = User::where("status", "=", "0")->where("type", "=", "student")->get();
         $years = AccademicYear::where("status", "=", "1")->get();
+        $departments = Department::all();
         // dd($users);
-        return view('student.create', compact('title', 'courses', 'users', "years", "student"));
+        return view('student.create', compact('title', 'courses', 'users', "years", "student", "departments"));
         //
     }
 
@@ -122,6 +127,7 @@ class StudentController extends Controller
      */
     public function destroy(Student $student)
     {
+        $user = User::where("id", "=", $student->user_id)->update(["status" => "0", "reg_id" => ""]);
         $student->delete();
         return request()->wantsJson() ? new JsonResponse(null, 204) : redirect(route('department.students.index'))->with('success', 'Your student has been deleted successfully!');
         //

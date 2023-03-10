@@ -56,6 +56,29 @@
                                 <div class="dropdown">
                                     <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton2"
                                         data-bs-toggle="dropdown" aria-expanded="false">
+                                        Menus
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+                                        <li>
+                                            <a href="{{ route('course.modules.index') }}"
+                                                class="ml-4 {{ request()->is('*modules*') ? 'nav-button-active' : 'nav-button' }}">
+                                                Module
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ route('laratrust.roles.index') }}"
+                                                class="ml-4 {{ request()->is('*comments*') ? 'nav-button-active' : 'nav-button' }}">
+                                                Comment
+                                            </a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="ml-10 flex-shrink-0">
+                                <div class="dropdown">
+                                    <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton2"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
                                         Role Management
                                     </button>
                                     <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">

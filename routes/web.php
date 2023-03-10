@@ -5,6 +5,7 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\Inv\UpdateAccademicController;
 use App\Http\Controllers\LectureController;
+use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -36,6 +37,7 @@ Route::prefix("/department")->name("department.")->group(function () {
 });
 Route::prefix("/course")->name("course.")->group(function () {
     Route::resource("courses", CourseController::class);
+    Route::resource("modules", ModuleController::class);
 });
 
 Route::prefix("/user")->name("user.")->group(function () {
