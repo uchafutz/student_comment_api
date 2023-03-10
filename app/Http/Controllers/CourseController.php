@@ -30,7 +30,7 @@ class CourseController extends Controller
     {
         $title = "New Course";
         $departments = Department::all();
-        return view('department.create', compact('title', 'departments'));
+        return view('course.create', compact('title', 'departments'));
         //
     }
 
@@ -44,7 +44,7 @@ class CourseController extends Controller
     {
         $request->validate(
             [
-                "name" => ["unique:cources,name", "required"],
+                "name" => ["unique:courses,name", "required"],
                 "credits" => ["required"],
                 "department_id" => ["required"]
 
@@ -78,7 +78,7 @@ class CourseController extends Controller
 
         $title = "Edit Course";
         $departments = Department::all();
-        return view('course.create', compact('title', 'departments'));
+        return view('course.create', compact('title', 'departments', 'course'));
         //
     }
 

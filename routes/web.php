@@ -1,7 +1,12 @@
 <?php
 
+use App\Http\Controllers\AccademicYearController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\Inv\UpdateAccademicController;
+use App\Http\Controllers\LectureController;
+use App\Http\Controllers\StudentController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -25,7 +30,15 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::prefix("/department")->name("department.")->group(function () {
     Route::resource("departments", DepartmentController::class);
+    Route::resource("lectures", LectureController::class);
+    Route::resource("years", AccademicYearController::class);
+    Route::resource("students", StudentController::class);
 });
 Route::prefix("/course")->name("course.")->group(function () {
     Route::resource("courses", CourseController::class);
 });
+
+Route::prefix("/user")->name("user.")->group(function () {
+    Route::resource("users", UserController::class);
+});
+Route::post("accademic/{year}", UpdateAccademicController::class)->name("accadmic.year");

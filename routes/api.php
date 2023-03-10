@@ -1,6 +1,11 @@
 <?php
 
+use App\Http\Controllers\AccademicYearController;
+use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\LectureController;
+use App\Http\Controllers\StudentController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -21,7 +26,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::prefix("/department")->name("api.")->group(function () {
     Route::resource("departments", DepartmentController::class);
+    Route::resource("lectures", LectureController::class);
+    Route::resource("years", AccademicYearController::class);
+    Route::resource("students", StudentController::class);
 });
 Route::prefix("/course")->name("api.")->group(function () {
     Route::resource("courses", CourseController::class);
+});
+Route::prefix("/user")->name("api.")->group(function () {
+    Route::resource("users", UserController::class);
 });

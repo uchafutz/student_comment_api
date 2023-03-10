@@ -22,94 +22,108 @@
         <nav class="bg-gray-800">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex items-center justify-center h-16">
-                    <div class="flex items-center">
-                        <div class="hidden md:block">
-                            <div class="flex items-baseline">
+                    @guest
+                    @else
+                        <div class="flex items-center">
+                            <div class="hidden md:block">
+                                <div class="flex items-baseline">
 
-                                <a href="#"
-                                    class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700"">Dashboard</a>
-                                <a href="#"
-                                    class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">Reports</a>
-                                <a href="{{ route('department.departments.index') }}"
-                                    class="mt-1 block {{ request()->is('*departments*') ? 'nav-button-active btn btn-primary' : 'nav-button' }}">Department</a>
-                                <a href="{{ route('course.courses.index') }}"
-                                    class="mt-1 block {{ request()->is('*courses*') ? 'nav-button-active btn btn-primary' : 'nav-button' }}">Course</a>
-                                <a href="#"
-                                    class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">Lecture</a>
-                                <a href="#"
-                                    class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">Student</a>
+                                    <a href="#"
+                                        class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700"">Dashboard</a>
+                                    <a href="#"
+                                        class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">Reports</a>
+                                    <a href="{{ route('department.departments.index') }}"
+                                        class="mt-1 block {{ request()->is('*departments*') ? 'nav-button-active btn btn-success' : 'nav-button' }}">Department</a>
+                                    <a href="{{ route('course.courses.index') }}"
+                                        class="mt-1 block {{ request()->is('*courses*') ? 'nav-button-active btn btn-success' : 'nav-button' }}">Course</a>
+                                    <a href="{{ route('department.lectures.index') }}"
+                                        class="mt-1 block {{ request()->is('*lectures*') ? 'nav-button-active btn btn-success' : 'nav-button' }}">Lecture</a>
+                                    <a href="{{ route('department.students.index') }}"
+                                        class="mt-1 block {{ request()->is('*students*') ? 'nav-button-active btn btn-success' : 'nav-button' }}">Student</a>
+                                    <a href="{{ route('department.years.index') }}"
+                                        class="mt-1 block {{ request()->is('*years*') ? 'nav-button-active btn btn-success' : 'nav-button' }}">Accademic
+                                        Year</a>
 
 
 
 
 
+
+
+                                </div>
                             </div>
-                        </div>
-                        <div class="ml-10 flex-shrink-0">
-                            <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button"
-                                    id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Role Management
-                                </button>
-                                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
-                                    <li>
-                                        <a href="{{ route('laratrust.permissions.index') }}"
-                                            class="ml-4 {{ request()->is('*permissions*') ? 'nav-button-active' : 'nav-button' }}">
-                                            Permissions
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ route('laratrust.roles.index') }}"
-                                            class="ml-4 {{ request()->is('*roles') ? 'nav-button-active' : 'nav-button' }}">
-                                            Roles
-                                        </a>
-                                    </li>
-                                    <li> <a href="{{ route('laratrust.roles-assignment.index') }}"
-                                            class="ml-4 {{ request()->is('*roles-assigment*') ? 'nav-button-active' : 'nav-button' }}">
-                                            Roles & Permissions
-                                        </a></li>
+                            <div class="ml-10 flex-shrink-0">
+                                <div class="dropdown">
+                                    <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton2"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                        Role Management
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+                                        <li>
+                                            <a href="{{ route('laratrust.permissions.index') }}"
+                                                class="ml-4 {{ request()->is('*permissions*') ? 'nav-button-active' : 'nav-button' }}">
+                                                Permissions
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ route('laratrust.roles.index') }}"
+                                                class="ml-4 {{ request()->is('*roles') ? 'nav-button-active' : 'nav-button' }}">
+                                                Roles
+                                            </a>
+                                        </li>
+                                        <li> <a href="{{ route('laratrust.roles-assignment.index') }}"
+                                                class="ml-4 {{ request()->is('*roles-assigment*') ? 'nav-button-active' : 'nav-button' }}">
+                                                Roles & Permissions
+                                            </a></li>
 
-                                    <li>
+                                        <li>
+                                            <hr class="dropdown-divider">
+                                        </li>
+                                        <li> <a href="{{ route('user.users.index') }}"
+                                                class="ml-4 {{ request()->is('*users*') ? 'nav-button-active' : 'nav-button' }}">
+                                                Manage User
+                                            </a></li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="ml-10 flex-shrink-0">
+                                <div class="dropdown">
+                                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton2"
+                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                        Account
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+                                        <li><a class="ml-4">
+                                                {{ Auth::user()->name }}
+                                            </a>
+                                        </li>
+
                                         <hr class="dropdown-divider">
-                                    </li>
-
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="ml-10 flex-shrink-0">
-                            <div class="dropdown">
-                                <button class="btn btn-secondary dropdown-toggle" type="button"
-                                    id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Account
-                                </button>
-                                <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
-                                    <li><a class="ml-4">
-                                            {{ Auth::user()->name }}
-                                        </a>
-                                    </li>
-
-                                    <hr class="dropdown-divider">
-                                    </li>
-                                    <li>
-                                        <div>
-                                            <div class="d-grid gap-2 d-md-block">
-                                                <a class="ml-4 btn btn-danger" href="{{ route('logout') }}"
-                                                    onclick="event.preventDefault();
+                                        </li>
+                                        <li>
+                                            <div>
+                                                <div class="d-grid gap-2 d-md-block">
+                                                    <a class="ml-4 btn btn-danger" href="{{ route('logout') }}"
+                                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                                    {{ __('Logout') }}
-                                                </a>
+                                                        {{ __('Logout') }}
+                                                    </a>
 
-                                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                                    class="d-none">
-                                                    @csrf
-                                                </form>
+                                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                                        class="d-none">
+                                                        @csrf
+                                                    </form>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </li>
-                                </ul>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                         </div>
-                    </div>
+
+
+                    @endguest
                     <div class="-mr-2 flex md:hidden">
                         <!-- Mobile menu button -->
                         <button

@@ -17,7 +17,7 @@ class Course extends Model
 
     public function departments()
     {
-        $this->belongsTo(Department::class, 'department_id');
+        return  $this->belongsTo(Department::class, 'department_id');
     }
     public static function boot()
     {

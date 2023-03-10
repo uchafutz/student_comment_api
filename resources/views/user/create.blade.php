@@ -7,11 +7,11 @@
     </div>
     <div class="flex flex-col">
         <div class="-my-2 py-2 overflow-x-auto sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-32">
-            @isset($course)
-                <form method="POST" action="{{ route('course.courses.update', ['course' => $course]) }}">
+            @isset($user)
+                <form method="POST" action="{{ route('user.users.update', ['user' => $user]) }}">
                     @method('PATCH')
                 @else
-                    <form method="POST" action="{{ route('course.courses.store') }}">
+                    <form method="POST" action="{{ route('user.users.store') }}">
                     @endisset
 
                     @csrf
@@ -22,7 +22,7 @@
 
                                 <span class="text-gray-700">Name.</span>
                                 <input type="text" class="form-input mt-1 block w-full" name="name" placeholder="Name"
-                                    value="{{ old('name') ?? isset($course) ? $course->name : '' }}">
+                                    value="{{ old('name') ?? isset($user) ? $user->name : '' }}">
 
                             </label>
                             @error('name')
@@ -30,31 +30,39 @@
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
-                            <label class="block my-4">
-                                <span class="text-gray-700">Credits</span>
-                                <input type="number" class="form-input mt-1 block w-full" name="credits"
-                                    placeholder="Credits"
-                                    value="{{ old('credits') ?? isset($course) ? $course->credits : '' }}">
+                            <label class="block">
 
-                                @error('credits')
+                                <span class="text-gray-700">Email.</span>
+                                <input type="email" class="form-input mt-1 block w-full" name="email"
+                                    placeholder="Email" value="{{ old('name') ?? isset($user) ? $user->email : '' }}">
+
+                            </label>
+                            @error('email')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                            <label class="block my-4">
+                                <span class="text-gray-700">Phone</span>
+                                <input type="number" class="form-input mt-1 block w-full" name="phone"
+                                    placeholder="Phone" value="{{ old('phone') ?? isset($user) ? $user->phone : '' }}">
+
+                                @error('phone')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
                             </label>
                             <label class="block my-4">
-                                <span class="text-gray-700">Department</span>
-                                <select name="department_id" class="form-input mt-1 block w-full" id="">
+                                <span class="text-gray-700">Type</span>
+                                <select name="type" class="form-input mt-1 block w-full" id="">
+                                    <option value="staff">STAFF</option>
+                                    <option value="student">STUDENT</option>
 
-                                    @foreach ($departments as $department)
-                                        <option value="{{ $department->id }}"
-                                            {{ old('department_id') == $department->id ? 'selected' : '' }}>
-                                            {{ $department->name }}</option>
-                                    @endforeach
                                 </select>
 
 
-                                @error('department_id')
+                                @error('type')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -63,7 +71,7 @@
 
 
                             <div class="flex justify-end">
-                                <a href="{{ route('course.courses.index') }}" class="btn btn-red mr-4">
+                                <a href="{{ route('user.users.index') }}" class="btn btn-red mr-4">
                                     Cancel
                                 </a>
                                 <button class="btn btn-blue" type="submit">Save</button>
