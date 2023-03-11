@@ -2,6 +2,7 @@
 
 namespace App\Models\Module;
 
+use App\Models\Course\Course;
 use App\Models\Department\AccademicYear;
 use App\Models\Lecture\Lecture;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -23,6 +24,11 @@ class Module extends Model
     public function lectures()
     {
         return $this->belongsToMany(Lecture::class, 'lecture_has_module', 'module_id', 'lecture_id');
+    }
+
+    public function courses()
+    {
+        return $this->belongsToMany(Course::class, "course_has_modules", "module_id", "course_id");
     }
     public static function boot()
     {

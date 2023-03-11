@@ -27,6 +27,7 @@
                             <th class="th">Name</th>
                             <th class="th">credits</th>
                             <th class="th">Department</th>
+                            <th class="th">No Modules</th>
                             <th class="th"></th>
                         </tr>
                     </thead>
@@ -48,11 +49,17 @@
                                 <td class="td text-sm leading-5 text-gray-900">
                                     {{ $course->departments->name }}
                                 </td>
+                                <td class="td text-sm leading-5 text-gray-900">
+                                    {{ $course->modules->count() }}
+                                </td>
                                 <td
                                     class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
                                     <div class="btn-group" role="group" aria-label="Basic example">
                                         <a href="{{ route('course.courses.edit', $course->getKey()) }}"
                                             class="text-blue-600 hover:text-blue-900">Edit</a>
+                                        <div class="p-3"></div>
+                                        <a href="{{ route('course.courses.show', $course->getKey()) }}"
+                                            class="text-success hover:text-success">Show</a>
                                         <form action="{{ route('course.courses.destroy', $course->getKey()) }}"
                                             method="POST"
                                             onsubmit="return confirm('Are you sure you want to delete the record?');">

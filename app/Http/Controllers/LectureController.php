@@ -69,7 +69,7 @@ class LectureController extends Controller
     public function show(Lecture $lecture)
     {
         $title = "Show Details Lecture";
-        $modules = Module::all();
+        $modules = Module::paginate(10);
         return request()->wantsJson() ? new JsonResponse(["data" => $lecture], 200) :  view("lecture.show", compact("lecture", "title", "modules"));
         //
     }

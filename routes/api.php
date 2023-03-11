@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AccademicYearController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\LectureController;
@@ -37,4 +38,7 @@ Route::prefix("/course")->name("api.")->group(function () {
 });
 Route::prefix("/user")->name("api.")->group(function () {
     Route::resource("users", UserController::class);
+});
+Route::prefix("/comment")->name("api.")->group(function () {
+    Route::resource("commets", CommentController::class);
 });

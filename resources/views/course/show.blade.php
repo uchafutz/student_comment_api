@@ -1,6 +1,6 @@
 @extends('laratrust::panel.layout')
 
-@section('title', "{$lecture->users->name}")
+@section('title', "{$course->name}")
 
 @section('content')
     <div class="flex flex-col">
@@ -16,7 +16,7 @@
                 class="mt-4 align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
 
                 <div class="card-body">
-                    <div class="card-header">LECTURE ID::<b>{{ $lecture->lectureID }}</b></div>
+                    <div class="card-header">COURSE CODE::<b>{{ $course->code }}</b></div>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-12">
@@ -24,25 +24,21 @@
                                     <div class="col-md-6">
                                         <div class="card mb-3" style="max-width: 540px;">
                                             <div class="row g-0">
-                                                <div class="col-md-4">
-                                                    <img src="{{ asset('image/user.png') }}" class="img-fluid rounded-start"
-                                                        alt="...">
-                                                </div>
+
                                                 <div class="col-md-8">
                                                     <div class="card-body">
-                                                        <h5 class="card-title"> {{ $lecture->departments->name }}
+                                                        <h5 class="card-title"> {{ $course->departments->name }}
                                                         </h5>
                                                         <hr />
                                                         <ul class="list-group list-group-flush">
                                                             <li class="list-group-item">
-                                                                <p>{{ $lecture->users->email }}</p>
+                                                                <p>{{ $course->credits }}</p>
                                                             </li>
-                                                            <li class="list-group-item">{{ $lecture->users->phone }}
-                                                            </li>
+
                                                             <li class="list-group-item">
                                                                 <button type="button" class="btn btn-primary">
                                                                     Modules <span
-                                                                        class="badge bg-danger">{{ $lecture->modules->count() }}</span>
+                                                                        class="badge bg-danger">{{ $course->modules->count() }}</span>
                                                                 </button>
                                                             </li>
                                                         </ul>
@@ -53,8 +49,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <form method="POST"
-                                            action="{{ route('lecture.assign', ['lecture' => $lecture]) }}">
+                                        <form method="POST" action="{{ route('course.assign', ['course' => $course]) }}">
                                             @method('POST')
                                             @csrf
                                             <span class="block text-gray-700 mt-4">Modules</span>
@@ -71,7 +66,7 @@
                                                                                 class="form-checkbox h-4 w-4"
                                                                                 name="module_id[]"
                                                                                 value="{{ $module->getKey() }}"
-                                                                                {!! $lecture->modules->contains($module->id) ? 'checked' : '' !!}>
+                                                                                {!! $course->modules->contains($module->id) ? 'checked' : '' !!}>
 
                                                                         </label></td>
                                                                     <td><span>{{ $module->name }}</span></td>
@@ -86,8 +81,7 @@
                                             </div>
 
                                             <div class="flex justify-end">
-                                                <a href="{{ route('department.lectures.index') }}"
-                                                    class="btn btn-red mr-4">
+                                                <a href="{{ route('course.courses.index') }}" class="btn btn-red mr-4">
                                                     Cancel
                                                 </a>
                                                 <button class="btn btn-blue" type="submit">Save</button>

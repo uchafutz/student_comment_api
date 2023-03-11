@@ -3,6 +3,7 @@
 namespace App\Models\Course;
 
 use App\Models\Department\Department;
+use App\Models\Module\Module;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -33,5 +34,9 @@ class Course extends Model
                 $model->code = $phrase . '-' . ($arr[1] + 1);
             }
         });
+    }
+    public function modules()
+    {
+        return $this->belongsToMany(Module::class, "course_has_modules", "course_id", "module_id");
     }
 }
