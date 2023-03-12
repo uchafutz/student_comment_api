@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Course\Course;
 use App\Models\Department\AccademicYear;
 use App\Models\Department\Department;
+use App\Models\Lecture\Lecture;
+use App\Models\Module\Module;
 use App\Models\Student\Student;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
@@ -82,8 +84,12 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
-
-        return request()->wantsJson() ? new JsonResponse(["data" => $student], 200) :  view("department.students.show", compact("student"));
+        $title = "New Comment";
+        $lectures = Lecture::with(["modules", "users"])->get();
+        $modules = Module::with(["courses", "lectures"])->get();
+        // dd($modules);
+        // dd($lectures);
+        return request()->wantsJson() ? new JsonResponse(["data" => $student], 200) :  view("student.show", compact("student", "title", "lectures", "modules"));
         //
     }
 

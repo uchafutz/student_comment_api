@@ -66,7 +66,7 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="{{ route('laratrust.roles.index') }}"
+                                            <a href="{{ route('comment.comments.index') }}"
                                                 class="ml-4 {{ request()->is('*comments*') ? 'nav-button-active' : 'nav-button' }}">
                                                 Comment
                                             </a>

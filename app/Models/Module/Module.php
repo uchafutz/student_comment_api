@@ -23,7 +23,7 @@ class Module extends Model
 
     public function lectures()
     {
-        return $this->belongsToMany(Lecture::class, 'lecture_has_module', 'module_id', 'lecture_id');
+        return $this->belongsToMany(Lecture::class, 'lecture_has_modules', 'module_id', 'lecture_id');
     }
 
     public function courses()

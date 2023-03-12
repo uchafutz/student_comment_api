@@ -40,5 +40,5 @@ Route::prefix("/user")->name("api.")->group(function () {
     Route::resource("users", UserController::class);
 });
 Route::prefix("/comment")->name("api.")->group(function () {
-    Route::resource("commets", CommentController::class);
+    Route::resource("comments", CommentController::class);
 });

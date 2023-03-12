@@ -51,5 +51,5 @@ Route::post("lectures/{lecture}", AssignLectureController::class)->name("lecture
 Route::post("courses/assign/{course}", AssingCourseController::class)->name("course.assign");
 
 Route::prefix("/comment")->name("comment.")->group(function () {
-    Route::resource("commets", CommentController::class);
+    Route::resource("comments", CommentController::class);
 });

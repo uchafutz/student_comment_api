@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment\Comment;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
@@ -14,6 +15,9 @@ class CommentController extends Controller
      */
     public function index()
     {
+
+        $comments = Comment::paginate(10);
+        return request()->wantsJson() ? new JsonResponse(["data" => $comments], 200) : view("comment.index", compact("comments"));
         //
     }
 
@@ -35,7 +39,15 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            "module_id" => "required",
+            "lecture_id" => "required",
+            "student_id" => "required",
+            "rates" => "required"
+        ]);
+
+        $comment = Comment::create($request->input());
+        return $request->wantsJson() ? new JsonResponse(["data" => $comment], 201) : redirect(route('department.students.index'))->with('success', 'Your new comment has been added successfully!');
     }
 
     /**
@@ -80,6 +92,8 @@ class CommentController extends Controller
      */
     public function destroy(Comment $comment)
     {
+        $comment->delete();
+        return request()->wantsJson() ? new JsonResponse(null, 204) : redirect(route('comment.comments.index'))->with('success', 'Your comment has been delete successfully!');
         //
     }
 }
