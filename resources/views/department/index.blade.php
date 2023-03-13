@@ -10,7 +10,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
-        @if (config('laratrust.panel.create_permissions'))
+        @if (Auth::user()->isAbleTo('department-create'))
             <a href="{{ route('department.departments.create') }}"
                 class="self-end  hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded">
                 + New Department
@@ -53,16 +53,22 @@
                                 <td
                                     class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-200 text-sm leading-5 font-medium">
                                     <div class="btn-group" role="group" aria-label="Basic example">
-                                        <a href="{{ route('department.departments.edit', $department->getKey()) }}"
-                                            class="text-blue-600 hover:text-blue-900">Edit</a>
-                                        <form action="{{ route('department.departments.destroy', $department->getKey()) }}"
-                                            method="POST"
-                                            onsubmit="return confirm('Are you sure you want to delete the record?');">
-                                            @method('DELETE')
-                                            @csrf
-                                            <button type="submit"
-                                                class="text-red-600 hover:text-red-900 ml-4">Delete</button>
-                                        </form>
+                                        @if (Auth::user()->isAbleTo('department-view'))
+                                            <a href="{{ route('department.departments.edit', $department->getKey()) }}"
+                                                class="text-blue-600 hover:text-blue-900">Edit</a>
+                                        @endif
+                                        @if (Auth::user()->isAbleTo('department-delete'))
+                                            <form
+                                                action="{{ route('department.departments.destroy', $department->getKey()) }}"
+                                                method="POST"
+                                                onsubmit="return confirm('Are you sure you want to delete the record?');">
+                                                @method('DELETE')
+                                                @csrf
+                                                <button type="submit"
+                                                    class="text-red-600 hover:text-red-900 ml-4">Delete</button>
+                                            </form>
+                                        @endif
+
                                     </div>
                                 </td>
                             </tr>

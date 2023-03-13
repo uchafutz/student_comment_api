@@ -15,6 +15,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
@@ -28,21 +30,33 @@
                             <div class="hidden md:block">
                                 <div class="flex items-baseline">
 
-                                    <a href="#"
-                                        class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700"">Dashboard</a>
-                                    <a href="#"
-                                        class="mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700">Reports</a>
-                                    <a href="{{ route('department.departments.index') }}"
-                                        class="mt-1 block {{ request()->is('*departments*') ? 'nav-button-active btn btn-success' : 'nav-button' }}">Department</a>
-                                    <a href="{{ route('course.courses.index') }}"
-                                        class="mt-1 block {{ request()->is('*courses*') ? 'nav-button-active btn btn-success' : 'nav-button' }}">Course</a>
-                                    <a href="{{ route('department.lectures.index') }}"
-                                        class="mt-1 block {{ request()->is('*lectures*') ? 'nav-button-active btn btn-success' : 'nav-button' }}">Lecture</a>
-                                    <a href="{{ route('department.students.index') }}"
-                                        class="mt-1 block {{ request()->is('*students*') ? 'nav-button-active btn btn-success' : 'nav-button' }}">Student</a>
-                                    <a href="{{ route('department.years.index') }}"
-                                        class="mt-1 block {{ request()->is('*years*') ? 'nav-button-active btn btn-success' : 'nav-button' }}">Accademic
-                                        Year</a>
+                                    <a href="{{ route('home') }}"
+                                        class="mt-1 block {{ request()->is('*home*') ? 'nav-button-active btn btn-success' : 'nav-button' }}">Dashboard</a>
+                                    <a href="{{ route('report.reports.home') }}"
+                                        class="mt-1 block {{ request()->is('*reports*') ? 'nav-button-active btn btn-success' : 'nav-button' }}">Reports</a>
+
+                                    @if (Auth::user()->isAbleTo('department-list'))
+                                        <a href="{{ route('department.departments.index') }}"
+                                            class="mt-1 block {{ request()->is('*departments*') ? 'nav-button-active btn btn-success' : 'nav-button' }}">Department</a>
+                                    @endif
+                                    @if (Auth::user()->isAbleTo('cousrse-list'))
+                                        <a href="{{ route('course.courses.index') }}"
+                                            class="mt-1 block {{ request()->is('*courses*') ? 'nav-button-active btn btn-success' : 'nav-button' }}">Course</a>
+                                    @endif
+                                    @if (Auth::user()->isAbleTo('lecture-list'))
+                                        <a href="{{ route('department.lectures.index') }}"
+                                            class="mt-1 block {{ request()->is('*lectures*') ? 'nav-button-active btn btn-success' : 'nav-button' }}">Lecture</a>
+                                    @endif
+                                    @if (Auth::user()->isAbleTo('student-list'))
+                                        <a href="{{ route('department.students.index') }}"
+                                            class="mt-1 block {{ request()->is('*students*') ? 'nav-button-active btn btn-success' : 'nav-button' }}">Student</a>
+                                    @endif
+
+                                    @if (Auth::user()->isAbleTo('year-list'))
+                                        <a href="{{ route('department.years.index') }}"
+                                            class="mt-1 block {{ request()->is('*years*') ? 'nav-button-active btn btn-success' : 'nav-button' }}">Accademic
+                                            Year</a>
+                                    @endif
 
 
 
@@ -59,57 +73,65 @@
                                         Menus
                                     </button>
                                     <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
-                                        <li>
-                                            <a href="{{ route('course.modules.index') }}"
-                                                class="ml-4 {{ request()->is('*modules*') ? 'nav-button-active' : 'nav-button' }}">
-                                                Module
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ route('comment.comments.index') }}"
-                                                class="ml-4 {{ request()->is('*comments*') ? 'nav-button-active' : 'nav-button' }}">
-                                                Comment
-                                            </a>
-                                        </li>
+                                        @if (Auth::user()->isAbleTo('module-list'))
+                                            <li>
+                                                <a href="{{ route('course.modules.index') }}"
+                                                    class="ml-4 {{ request()->is('*modules*') ? 'nav-button-active' : 'nav-button' }}">
+                                                    Module
+                                                </a>
+                                            </li>
+                                        @endif
+                                        @if (Auth::user()->isAbleTo('comment-list'))
+                                            <li>
+                                                <a href="{{ route('comment.comments.index') }}"
+                                                    class="ml-4 {{ request()->is('*comments*') ? 'nav-button-active' : 'nav-button' }}">
+                                                    Comment
+                                                </a>
+                                            </li>
+                                        @endif
+
 
                                     </ul>
                                 </div>
                             </div>
-                            <div class="ml-10 flex-shrink-0">
-                                <div class="dropdown">
-                                    <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton2"
-                                        data-bs-toggle="dropdown" aria-expanded="false">
-                                        Role Management
-                                    </button>
-                                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
-                                        <li>
-                                            <a href="{{ route('laratrust.permissions.index') }}"
-                                                class="ml-4 {{ request()->is('*permissions*') ? 'nav-button-active' : 'nav-button' }}">
-                                                Permissions
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ route('laratrust.roles.index') }}"
-                                                class="ml-4 {{ request()->is('*roles') ? 'nav-button-active' : 'nav-button' }}">
-                                                Roles
-                                            </a>
-                                        </li>
-                                        <li> <a href="{{ route('laratrust.roles-assignment.index') }}"
-                                                class="ml-4 {{ request()->is('*roles-assigment*') ? 'nav-button-active' : 'nav-button' }}">
-                                                Roles & Permissions
-                                            </a></li>
+                            @if (Auth::user()->isAn('administrator'))
+                                <div class="ml-10 flex-shrink-0">
+                                    <div class="dropdown">
+                                        <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton2"
+                                            data-bs-toggle="dropdown" aria-expanded="false">
+                                            Role Management
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+                                            <li>
+                                                <a href="{{ route('laratrust.permissions.index') }}"
+                                                    class="ml-4 {{ request()->is('*permissions*') ? 'nav-button-active' : 'nav-button' }}">
+                                                    Permissions
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ route('laratrust.roles.index') }}"
+                                                    class="ml-4 {{ request()->is('*roles') ? 'nav-button-active' : 'nav-button' }}">
+                                                    Roles
+                                                </a>
+                                            </li>
+                                            <li> <a href="{{ route('laratrust.roles-assignment.index') }}"
+                                                    class="ml-4 {{ request()->is('*roles-assigment*') ? 'nav-button-active' : 'nav-button' }}">
+                                                    Roles & Permissions
+                                                </a></li>
 
-                                        <li>
-                                            <hr class="dropdown-divider">
-                                        </li>
-                                        <li> <a href="{{ route('user.users.index') }}"
-                                                class="ml-4 {{ request()->is('*users*') ? 'nav-button-active' : 'nav-button' }}">
-                                                Manage User
-                                            </a></li>
+                                            <li>
+                                                <hr class="dropdown-divider">
+                                            </li>
+                                            <li> <a href="{{ route('user.users.index') }}"
+                                                    class="ml-4 {{ request()->is('*users*') ? 'nav-button-active' : 'nav-button' }}">
+                                                    Manage User
+                                                </a></li>
 
-                                    </ul>
+                                        </ul>
+                                    </div>
                                 </div>
-                            </div>
+                            @endif
+
                             <div class="ml-10 flex-shrink-0">
                                 <div class="dropdown">
                                     <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton2"

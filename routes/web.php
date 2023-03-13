@@ -3,12 +3,14 @@
 use App\Http\Controllers\AccademicYearController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\Inv\AssignLectureController;
 use App\Http\Controllers\Inv\AssingCourseController;
 use App\Http\Controllers\Inv\UpdateAccademicController;
 use App\Http\Controllers\LectureController;
 use App\Http\Controllers\ModuleController;
+use App\Http\Controllers\Report\ReportController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -31,7 +33,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get("/home", DashboardController::class)->name("home");
 Route::prefix("/department")->name("department.")->group(function () {
     Route::resource("departments", DepartmentController::class);
     Route::resource("lectures", LectureController::class);
@@ -52,4 +55,8 @@ Route::post("courses/assign/{course}", AssingCourseController::class)->name("cou
 
 Route::prefix("/comment")->name("comment.")->group(function () {
     Route::resource("comments", CommentController::class);
+});
+Route::prefix("/report")->name("report.")->group(function () {
+    Route::get("reports", [App\Http\Controllers\Report\ReportController::class, "index"])->name("reports.home");
+    Route::get("users", [App\Http\Controllers\Report\ReportController::class, "exportUsers"])->name("reports.user");
 });
