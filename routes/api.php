@@ -5,6 +5,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\LectureController;
+use App\Http\Controllers\Login\LoginApiController;
 use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UserController;
@@ -25,7 +26,9 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
+Route::prefix("/authentication")->name("authentication")->group(function () {
+    Route::post("login", LoginApiController::class)->name(".student");
+});
 Route::prefix("/department")->name("api.")->group(function () {
     Route::resource("departments", DepartmentController::class);
     Route::resource("lectures", LectureController::class);

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Models\Comment\Comment;
 use App\Models\Lecture\Lecture;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -22,15 +23,17 @@ class DashboardController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $lectures = Lecture::count();
-        $users = User::select(DB::raw("COUNT(*) as count"))->get();
+        $query = Comment::query();
+        $query = $query->selectRaw('AVG(rates) average_score, lecture_id');
+        $query = $query->with('lectures.users');
+        $query = $query->groupBy('lecture_id');
 
+        $comment = $query->get();
 
-        // dd($users);
+        $labels = $comment->pluck('lectures.users.name');
+        $data = $comment->pluck('average_score');
 
-        $labels = $users->keys();
-        $data = $users->values();
-        return view("home", compact("lectures", "labels", "data"));
+        return view("home", compact("comment", "labels", "data"));
         //
     }
 }

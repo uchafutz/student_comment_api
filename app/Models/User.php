@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\Course\Course;
+use App\Models\Department\AccademicYear;
+use App\Models\Department\Department;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -45,4 +48,17 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public function academics()
+    {
+        return $this->hasMany(AccademicYear::class);
+    }
+    public function departments()
+    {
+        return $this->hasMany(Department::class);
+    }
+
+    public function courses()
+    {
+        return $this->hasMany(Course::class);
+    }
 }
