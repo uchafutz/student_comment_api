@@ -87,7 +87,8 @@ class StudentController extends Controller
         $title = "New Comment";
         $lectures = Lecture::with(["modules", "users"])->get();
         $modules = Module::with(["courses", "lectures"])->get();
-        // dd($modules);
+        $CourseData = Course::where('id', '=', $student->course_id)->with(['modules', 'modules.lectures'])->get();
+        dd($CourseData);
         // dd($lectures);
         return request()->wantsJson() ? new JsonResponse(["data" => $student], 200) :  view("student.show", compact("student", "title", "lectures", "modules"));
         //
