@@ -7,6 +7,7 @@ use App\Models\Department\AccademicYear;
 use App\Models\Department\Department;
 use App\Models\Lecture\Lecture;
 use App\Models\Module\Module;
+use App\Models\Question\Question;
 use App\Models\Student\Student;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
@@ -87,10 +88,12 @@ class StudentController extends Controller
         $title = "New Comment";
         $lectures = Lecture::with(["modules", "users"])->get();
         $modules = Module::with(["courses", "lectures"])->get();
+        $questions = Question::with(['answer'])->get();
+        // dd($question->toArray());
         $CourseData = Course::where('id', '=', $student->course_id)->with(['modules', 'modules.lectures'])->get();
-        dd($CourseData);
+        // dd($CourseData);
         // dd($lectures);
-        return request()->wantsJson() ? new JsonResponse(["data" => $student], 200) :  view("student.show", compact("student", "title", "lectures", "modules"));
+        return request()->wantsJson() ? new JsonResponse(["data" => $student], 200) :  view("student.show", compact("student", "title", "lectures", "modules", "CourseData", "questions"));
         //
     }
 

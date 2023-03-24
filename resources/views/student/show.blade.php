@@ -24,6 +24,8 @@
                             <div class="row">
 
                                 <div class="col">
+                                    <label for="exampleFormControlTextarea1" class="form-label">Select Lecturer’s
+                                    </label>
                                     <select class="form-select" name="lecture_id" aria-label="Default select example">
                                         @foreach ($lectures as $lecture)
                                             <option value="{{ $lecture->id }}">{{ $lecture->users->name }}</option>
@@ -34,6 +36,7 @@
 
                                 </div>
                                 <div class="col">
+                                    <label for="exampleFormControlTextarea1" class="form-label">Select Module name</label>
                                     <select class="form-select" name="module_id" aria-label="Default select example">
                                         @foreach ($modules as $module)
                                             <option value="{{ $module->id }}">{{ $module->name }}</option>
@@ -45,6 +48,8 @@
                             </div>
                             <div class="p-4"></div>
                             <div class="row">
+                                <label for="exampleFormControlTextarea1" class="form-label">How would you rate the teacher’s
+                                    knowledge of the subject matter?</label>
                                 <div class="col">
                                     <div class="form-check">
                                         <input class="form-check-input" name="rates" type="radio" value="4"
@@ -73,6 +78,26 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="p-4"></div>
+                            @foreach ($questions as $key => $question)
+                                <div class="row">
+                                    <input type="hidden" name="items[{{ $key }}][question_id]"
+                                        value="{{ $question->id }}" />
+                                    <label for="exampleFormControlTextarea1"
+                                        class="form-label">{{ $question->name }}</label>
+                                    <div class="flex flex-wrap justify-start mb-4">
+                                        @foreach ($question->answer as $key => $answer)
+                                            <label class="inline-flex items-center mr-6 my-2 text-sm"
+                                                style="flex: 1 0 20%;">
+                                                <input type="checkbox" class="form-checkbox h-4 w-4"
+                                                    name="items[{{ $key }}][answer_id]"
+                                                    value="{{ $answer->getKey() }}">
+                                                <span class="ml-2">{{ $answer->name }}</span>
+                                            </label>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            @endforeach
                             <div class="p-4"></div>
                             <div class="row">
                                 <div class="mb-3">

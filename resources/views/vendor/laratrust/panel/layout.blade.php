@@ -90,6 +90,24 @@
                                                 </a>
                                             </li>
                                         @endif
+                                        @if (Auth::user()->isAbleTo('question-list'))
+                                            <li>
+                                                <a href="{{ route('comment.questions.index') }}"
+                                                    class="ml-4 {{ request()->is('*question*') ? 'nav-button-active' : 'nav-button' }}">
+                                                    Question
+                                                </a>
+                                            </li>
+                                        @endif
+                                        @if (Auth::user()->isAbleTo('answer-list'))
+                                            <li>
+                                                <a href="{{ route('comment.answers.index') }}"
+                                                    class="ml-4 {{ request()->is('*answers*') ? 'nav-button-active' : 'nav-button' }}">
+                                                    Answer
+                                                </a>
+                                            </li>
+                                        @endif
+
+
 
 
                                     </ul>
