@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Comment\Comment;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CommentController extends Controller
 {
@@ -39,14 +40,20 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request->input());
         $request->validate([
             "module_id" => "required",
             "lecture_id" => "required",
             "student_id" => "required",
             "rates" => "required"
         ]);
-
+        DB::beginTransaction();
         $comment = Comment::create($request->input());
+        foreach ($request->input("items") as $item) {
+            $comment->item()->create($item);
+        }
+        DB::commit();
+
         return $request->wantsJson() ? new JsonResponse(["data" => $comment], 201) : redirect(route('department.students.index'))->with('success', 'Your new comment has been added successfully!');
     }
 

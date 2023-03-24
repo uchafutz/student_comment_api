@@ -4,7 +4,10 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Models\Comment\Comment;
+use App\Models\Course\Course;
+use App\Models\Department\Department;
 use App\Models\Lecture\Lecture;
+use App\Models\Student\Student;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -32,8 +35,11 @@ class DashboardController extends Controller
 
         $labels = $comment->pluck('lectures.users.name');
         $data = $comment->pluck('average_score');
-
-        return view("home", compact("comment", "labels", "data"));
+        $department = Department::count();
+        $course = Course::count();
+        $lecture = Lecture::count();
+        $student = Student::count();
+        return view("home", compact("comment", "labels", "data", "department", "course", "lecture", "student"));
         //
     }
 }
