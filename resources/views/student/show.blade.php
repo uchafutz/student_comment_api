@@ -3,7 +3,7 @@
 @section('title', "{$title}")
 
 @section('content')
-    <div class="flex flex-col">
+    <div class="flex flex-col"  x-data="getState()" x-init="initialize({{ json_encode($lectures) }}, {{ json_encode($departments) }}, {{ json_encode($modules) }})">
         @if (session('success'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
                 <strong> {{ session('success') }}</strong>
@@ -26,24 +26,27 @@
                                 <div class="col">
                                     <label for="exampleFormControlTextarea1" class="form-label">Select Lecturer’s
                                     </label>
-                                    <select class="form-select" name="lecture_id" aria-label="Default select example">
-                                        @foreach ($lectures as $lecture)
-                                            <option value="{{ $lecture->id }}">{{ $lecture->users->name }}</option>
-                                        @endforeach
-
-
-                                    </select>
+                                     <select name="lecture_id" x-model="form.lecture_id"
+                                    class="form-control @error('department_id') is-invalid @enderror">
+                                     <option value="">Choose...</option>
+                                    <template x-for="lecture in lectures">
+                                        <option x-bind:value="lecture.id" x-text="lecture.users.name">
+                                        </option>
+                                    </template>
+                                     </select>
 
                                 </div>
                                 <div class="col">
                                     <label for="exampleFormControlTextarea1" class="form-label">Select Module name</label>
-                                    <select class="form-select" name="module_id" aria-label="Default select example">
-                                        @foreach ($modules as $module)
-                                            <option value="{{ $module->id }}">{{ $module->name }}</option>
-                                        @endforeach
-
-
-                                    </select>
+                                   <select class="form-control" name='module_id' x-model='form.module_id'>
+                                                <template x-for="module in form.modules">
+                                                  <option x-bind:value="module.id" x-text="module.name">
+                                                 </template>   
+                                                </div>                                        
+                                            </template>
+                                           
+                                        </select>
+                                                   
                                 </div>
                             </div>
                             <div class="p-4"></div>
@@ -119,3 +122,47 @@
             </div>
         </div>
     @endsection
+<script>
+    const initialForm = {
+
+        modules: {},
+        department_id: '',
+        lecture_id: '',
+        module_id: ''
+    }
+
+    function getState() {
+        return {
+            lectures: [],
+            departments: [],
+            modules: [],
+            form: initialForm,
+            initialize(lectures, departments, modules) {
+                this.modules = modules;
+                this.departments = departments;
+                this.lectures = lectures;
+                
+
+
+
+
+                this.$watch('form.department_id', id => {
+
+                })
+                this.$watch('form.lecture_id', id => {
+                  const _modules=this.lectures.find(u=> u.id== id);
+                  console.log("the values",_modules.modules);
+                  if(_modules.modules){
+                    this.form.modules=_modules.modules;
+                  }
+
+                   console.log("the value of modules",this.form.modules);
+                })
+            },
+        }
+            console.log(lectures);
+
+    }
+    // console.log(lectures);
+
+</script>
