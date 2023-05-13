@@ -16,6 +16,8 @@ class ReportController extends Controller
 
     public function index()
     {
+
+
         $years = AccademicYear::all();
         $lectures = Lecture::with('modules', 'departments', 'users')->get();
         $departments = Department::all();
