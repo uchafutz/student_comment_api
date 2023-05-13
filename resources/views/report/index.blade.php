@@ -14,7 +14,7 @@
                                 </div>
 
                                 <div class="card-body">
-                                    <form action="{{ route('report.reports.user') }}" method="POST">
+                                    <form action="{{ route('report.report.lectures') }}" method="POST">
                                         @csrf
                                     <div class="row">
                                     <div class="col">
@@ -66,7 +66,7 @@
                                         </div>
                                         <div class="col">
                                              <div class="form-group">
-                                            <label for="department_id" class="control-label">Accademic</label>
+                                            <label for="year_id" class="control-label">Accademic</label>
                                              <select class="form-control" name="year_id">
                                             
                                             @foreach ($years as $year )

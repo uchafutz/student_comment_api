@@ -8,6 +8,7 @@ use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\Inv\AssignLectureController;
 use App\Http\Controllers\Inv\AssingCourseController;
+use App\Http\Controllers\Inv\LectureReportController;
 use App\Http\Controllers\Inv\UpdateAccademicController;
 use App\Http\Controllers\LectureController;
 use App\Http\Controllers\ModuleController;
@@ -64,5 +65,6 @@ Route::middleware('auth')->group(function () {
     Route::prefix("/report")->name("report.")->group(function () {
         Route::get("reports", [App\Http\Controllers\Report\ReportController::class, "index"])->name("reports.home");
         Route::get("users", [App\Http\Controllers\Report\ReportController::class, "exportUsers"])->name("reports.user");
+        Route::post("lectures", LectureReportController::class)->name("report.lectures");
     });
 });
