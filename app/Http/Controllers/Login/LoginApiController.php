@@ -23,8 +23,12 @@ class LoginApiController extends Controller
         $credentials = $request->only('reg_id', 'password');
         if (Auth::attempt($credentials)) {
             $token = $request->user()->createToken(Random::generate());
-            $user = Student::find(Auth::id());
-            $user->load(["users", "accademics", "courses.departments"]);
+            $value = Auth::id();
+            //dd($value);
+            $user = Student::where("user_id", "=", $value)->with(["users", "accademics", "courses.departments"])->get();
+            //dd($user);
+            // $user->with([]);
+            // dd($user);
             if (request()->wantsJson()) {
                 return response([
                     'token' => $token->plainTextToken,
