@@ -90,11 +90,11 @@ class StudentController extends Controller
         $modules = Module::with(["courses", "lectures"])->get();
         $departments = Department::all();
         $questions = Question::with(['answer'])->get();
-        // dd($question->toArray());
-        $CourseData = Course::where('id', '=', $student->course_id)->with(['modules', 'modules.lectures'])->get();
-        // dd($CourseData);
+        //dd($questions->toArray());
+        $CourseData = Course::where('id', '=', $student->course_id)->with(['modules', 'modules.lectures.users'])->get();
+        // dd($CourseData->toArray());
         // dd($lectures);
-        return request()->wantsJson() ? new JsonResponse(["data" => $student], 200) :  view("student.show", compact("student", "title", "lectures", "modules", "CourseData", "questions", "departments"));
+        return request()->wantsJson() ? new JsonResponse(["course" => $CourseData, "questions" => $questions], 200) :  view("student.show", compact("student", "title", "lectures", "modules", "CourseData", "questions", "departments"));
         //
     }
 
