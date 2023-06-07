@@ -2,6 +2,7 @@
 
 namespace App\Models\Faculty;
 
+use App\Models\Course\Course;
 use App\Models\Department\Department;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;

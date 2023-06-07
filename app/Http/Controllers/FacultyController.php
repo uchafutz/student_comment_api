@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course\Course;
 use App\Models\Department\Department;
 use App\Models\Faculty\Faculty;
 use Illuminate\Http\JsonResponse;
@@ -60,7 +61,8 @@ class FacultyController extends Controller
      */
     public function show(Faculty $faculty)
     {
-        //
+        $programmes = Course::all();
+        return view('faculty.show', compact('faculty', 'programmes'));
     }
 
     /**
