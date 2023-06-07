@@ -8,6 +8,7 @@ use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\FacultyController;
 use App\Http\Controllers\Inv\AssignLectureController;
+use App\Http\Controllers\Inv\AssignProgramme;
 use App\Http\Controllers\Inv\AssingCourseController;
 use App\Http\Controllers\Inv\LectureReportController;
 use App\Http\Controllers\Inv\UpdateAccademicController;
@@ -58,6 +59,7 @@ Route::middleware('auth')->group(function () {
     Route::post("accademic/{year}", UpdateAccademicController::class)->name("accadmic.year");
     Route::post("lectures/{lecture}", AssignLectureController::class)->name("lecture.assign");
     Route::post("courses/assign/{course}", AssingCourseController::class)->name("course.assign");
+    Route::post("facultys/programme/{faculty}", AssignProgramme::class)->name('faculty.assign');
 
     Route::prefix("/comment")->name("comment.")->group(function () {
         Route::resource("comments", CommentController::class);
