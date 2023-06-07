@@ -50,7 +50,7 @@
                                         </div>
                                         <div class="col">
                                             <div class="form-group">
-                                            <label for="module_id" class="control-label">Choose Module</label>
+                                            <label for="module_id" class="control-label">Choose Course</label>
                                             <select class="form-control" name='module_id' x-model='form.module_id'>
                                                 <template x-for="module in form.modules">
                                                   <option x-bind:value="module.id" x-text="module.name">

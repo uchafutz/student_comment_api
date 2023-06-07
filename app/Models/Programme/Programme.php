@@ -1,15 +1,14 @@
 <?php
 
-namespace App\Models\Course;
+namespace App\Models\Programme;
 
 use App\Models\Department\Department;
-use App\Models\Faculty\Faculty;
 use App\Models\Module\Module;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Course extends Model
+class Programme extends Model
 {
     use HasFactory;
     use SoftDeletes;
@@ -26,7 +25,7 @@ class Course extends Model
         parent::boot();
         static::creating(function ($model) {
             $latest = Department::latest()->first();
-            $phrase = "PROGRAMME/" . rand(2000, 9009);
+            $phrase = "Programme/" . rand(2000, 9009);
             // dd($latest);
             if (!$latest) {
                 $model->code = $phrase . '-' . 1;
@@ -38,11 +37,6 @@ class Course extends Model
     }
     public function modules()
     {
-        return $this->belongsToMany(Module::class, "course_has_modules", "course_id", "module_id");
-    }
-
-    public function facults()
-    {
-        return $this->belongsToMany(Faculty::class, 'faculty_has_programme', 'course_id', 'programme_id');
+        return $this->belongsToMany(Module::class, "Programme_has_modules", "Programme_id", "module_id");
     }
 }

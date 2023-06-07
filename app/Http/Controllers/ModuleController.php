@@ -30,7 +30,7 @@ class ModuleController extends Controller
      */
     public function create()
     {
-        $title = "New Module";
+        $title = "New Course";
         $years = AccademicYear::where("status", "=", "1")->get();
         return view('module.create', compact('title', "years"));
         //
@@ -53,7 +53,7 @@ class ModuleController extends Controller
             ]
         );
         $module = Module::create($request->input());
-        return $request->wantsJson() ? new JsonResponse(["data" => $module], 201) : redirect(route('course.modules.index'))->with('success', 'Your new Module has been added successfully!');
+        return $request->wantsJson() ? new JsonResponse(["data" => $module], 201) : redirect(route('course.modules.index'))->with('success', 'Your new course has been added successfully!');
         //
     }
 
@@ -76,7 +76,7 @@ class ModuleController extends Controller
      */
     public function edit(Module $module)
     {
-        $title = "Edit Module";
+        $title = "Edit Course";
         $years = AccademicYear::where("status", "=", "1")->get();
         return view('module.create', compact('title', "years"));
         //
@@ -92,7 +92,7 @@ class ModuleController extends Controller
     public function update(Request $request, Module $module)
     {
         $module->update($request->input());
-        return $request->wantsJson() ? new JsonResponse(["data" => $module], 200) : redirect(route('course.modules.index'))->with('success', 'Your module has been updated successfully!');
+        return $request->wantsJson() ? new JsonResponse(["data" => $module], 200) : redirect(route('course.modules.index'))->with('success', 'Your course has been updated successfully!');
         //
     }
 
@@ -105,6 +105,6 @@ class ModuleController extends Controller
     public function destroy(Module $module)
     {
         $module->delete();
-        return request()->wantsJson() ? new JsonResponse(null, 204) : redirect(route('course.modules.index'))->with('success', 'Your  module has been deleted successfully!'); //
+        return request()->wantsJson() ? new JsonResponse(null, 204) : redirect(route('course.modules.index'))->with('success', 'Your  course has been deleted successfully!'); //
     }
 }

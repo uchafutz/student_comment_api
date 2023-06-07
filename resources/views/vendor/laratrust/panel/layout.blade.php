@@ -43,7 +43,7 @@
                                     @endif
                                     @if (Auth::user()->isAbleTo('course-list'))
                                         <a href="{{ route('course.courses.index') }}"
-                                            class="mt-1 block {{ request()->is('*courses*') ? 'nav-button-active btn btn-success' : 'nav-button' }}">Course</a>
+                                            class="mt-1 block {{ request()->is('*courses*') ? 'nav-button-active btn btn-success' : 'nav-button' }}">Programme</a>
                                     @endif
                                     @if (Auth::user()->isAbleTo('lecture-list'))
                                         <a href="{{ route('department.lectures.index') }}"
@@ -59,6 +59,11 @@
                                             class="mt-1 block {{ request()->is('*years*') ? 'nav-button-active btn btn-success' : 'nav-button' }}">Accademic
                                             Year</a>
                                     @endif
+                                    @if (Auth::user()->isAbleTo('faculty-list'))
+                                        <a href="{{ route('facultys.index') }}"
+                                            class="mt-1 block {{ request()->is('*facultys*') ? 'nav-button-active btn btn-success' : 'nav-button' }}">Faculty
+                                            </a>
+                                    @endif
 
                                 </div>
                             </div>
@@ -73,7 +78,7 @@
                                             <li>
                                                 <a href="{{ route('course.modules.index') }}"
                                                     class="ml-4 {{ request()->is('*modules*') ? 'nav-button-active' : 'nav-button' }}">
-                                                    Module
+                                                    Course
                                                 </a>
                                             </li>
                                         @endif

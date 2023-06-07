@@ -37,7 +37,7 @@
 
                                 </div>
                                 <div class="col">
-                                    <label for="exampleFormControlTextarea1" class="form-label">Select Module name</label>
+                                    <label for="exampleFormControlTextarea1" class="form-label">Select Course name</label>
                                    <select class="form-control" name='module_id' x-model='form.module_id'>
                                                 <template x-for="module in form.modules">
                                                   <option x-bind:value="module.id" x-text="module.name">

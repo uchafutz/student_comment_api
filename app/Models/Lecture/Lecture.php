@@ -14,7 +14,7 @@ class Lecture extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $fillable = ['lectureID', 'user_id', 'department_id'];
+    protected $fillable = ['lectureID', 'user_id', 'department_id', 'faculty_id'];
 
     public static function boot()
     {
