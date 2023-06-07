@@ -1,7 +1,5 @@
 @extends('laratrust::panel.layout')
-
 @section('title', 'Lecture')
-
 @section('content')
     <div class="flex flex-col">
         @if (session('success'))

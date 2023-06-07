@@ -6,6 +6,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\FacultyController;
 use App\Http\Controllers\Inv\AssignLectureController;
 use App\Http\Controllers\Inv\AssingCourseController;
 use App\Http\Controllers\Inv\LectureReportController;
@@ -39,6 +40,7 @@ Auth::routes();
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::middleware('auth')->group(function () {
     Route::get("/home", DashboardController::class)->name("home");
+    Route::resource("facultys", FacultyController::class);
     Route::prefix("/department")->name("department.")->group(function () {
         Route::resource("departments", DepartmentController::class);
         Route::resource("lectures", LectureController::class);

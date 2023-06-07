@@ -23,7 +23,7 @@
                             <th class="th">Points</th>
                             <th class="th">Student</th>
                             <th class="th">Lecture</th>
-                            <th class="th">Module</th>
+                            <th class="th">Course</th>
                             <th class="th"></th>
                         </tr>
                     </thead>

@@ -29,7 +29,7 @@
                                         <div class="float-right">
                                             <i class="mdi mdi-currency-usd text-danger widget-icon"></i>
                                         </div>
-                                        <h5 class="text-muted font-weight-normal mt-0">Courses</h5>
+                                        <h5 class="text-muted font-weight-normal mt-0">Programme</h5>
                                         <h3 class="mt-2">{{ $course }}</h3>
                                     </div>
                                     <div id="sparkline2"></div>

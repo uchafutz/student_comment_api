@@ -16,7 +16,7 @@
                 class="mt-4 align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200">
 
                 <div class="card-body">
-                    <div class="card-header">COURSE CODE::<b>{{ $course->code }}</b></div>
+                    <div class="card-header">PROGRAMME NO::<b>{{ $course->id }}</b></div>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-12">
@@ -37,7 +37,7 @@
 
                                                             <li class="list-group-item">
                                                                 <button type="button" class="btn btn-primary">
-                                                                    Modules <span
+                                                                    Courses <span
                                                                         class="badge bg-danger">{{ $course->modules->count() }}</span>
                                                                 </button>
                                                             </li>
@@ -52,7 +52,7 @@
                                         <form method="POST" action="{{ route('course.assign', ['course' => $course]) }}">
                                             @method('POST')
                                             @csrf
-                                            <span class="block text-gray-700 mt-4">Modules</span>
+                                            <span class="block text-gray-700 mt-4">Course</span>
                                             <div class="flex flex-wrap justify-start mb-4">
                                                 <table class="table table-bordered">
                                                     @foreach ($modules as $module)
